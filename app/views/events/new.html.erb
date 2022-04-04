@@ -1,0 +1,42 @@
+<div>
+  <h1>Buat Acara Baru</h1>
+  <div>
+    <%= form_tag("/events/create") do %>
+      <div>
+        <label for="name">Nama Acara</label>
+        <input type="text" name="name" id="name" value="<%= params[:name] %>" placeholder="Contoh: Pertemuan Pemuda">
+      </div>
+      <div>
+        <label for="date">Tanggal</label>
+        <input type="datetime-local" name="date" id="date" value="<%= params[:date] %>">
+      </div>
+      <div>
+        <label for="place">Tempat</label>
+        <input type="text" name="place" id="place" value="<%= params[:place] %>" placeholder="Contoh: Balai RW 02">
+      </div>
+      <div>
+        <label for="desc">Deskripsi <span>(*Opsional)</span></label>
+        <textarea type="text" name="description" id="desc" value="<%= params[:description] %>" placeholder="Contoh: Pertemuan untuk membahas persiapan acara peringatan kemerdekaan"></textarea>
+      </div>
+      <div>
+        <label for="opening">Pesan Pembuka <span>(*Opsional)</span></label>
+        <textarea type="text" name="opening" id="opening" value="<%= params[:opening] %>" placeholder="Contoh: Kami mengundang saudara untuk datang ke acara:"></textarea>
+      </div>
+      <div>
+        <label for="closing">Pesan Penutup <span>(*Opsional)</span></label>
+        <textarea type="text" name="closing" id="closing" value="<%= params[:closing] %>" placeholder="Contoh: Atas perhatiannya kami ucapkan terima kasih"></textarea>
+      </div>
+      <div>
+        <label for="sender">Nama Pengirim</label>
+        <input type="text" name="sender" id="sender" value="<%= params[:sender] %>" placeholder="Nama Panggilan atau Nama Lengkap">
+      </div>
+      <div>
+        <label for="status">Jabatan Pengirim</label>
+        <input type="text" name="sender_status" id="status" value="<%= params[:sender_status] %>" placeholder="Contoh: 'Ketua RW', atau bisa diisi dengan kata 'dari' atau 'oleh'">
+      </div>
+      <div>
+        <input type="submit" value="Buat Acara">
+      </div>
+    <% end %>
+  </div>
+</div>

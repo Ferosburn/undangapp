@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  date: 2022-03-27 13:31:51
+  place: MyString
+  description: MyString
+  opening: MyString
+  closing: MyString
+  sender: MyString
+  sender_status: MyString
+
+two:
+  name: MyString
+  date: 2022-03-27 13:31:51
+  place: MyString
+  description: MyString
+  opening: MyString
+  closing: MyString
+  sender: MyString
+  sender_status: MyString

@@ -1,0 +1,37 @@
+<div>
+  <h1>
+    <%= @event.name %>
+  </h1>
+  <%= @event.date.strftime("#{@day_id[@event.date.strftime("%w").to_i]}, %d #{@month_id[@event.date.strftime("%-m").to_i - 1]} %Y - %H:%M") %>
+  <%= @event.place %>
+</div>
+<div>
+  <%= form_tag("/recipients/#{@event.id}/create") do %>
+    <div>
+      <label for="name">Nama</label>
+      <input type="text" id="name" name="name" value="<%= params[:name] %>">
+    </div>
+    <div>
+      <input type="submit" value="Tambah penerima">
+    </div>
+  <% end %>
+  <% if @recipients.find_by(event_id: @event.id) %>
+    <table>
+      <tr>
+        <th>Nama Penerima</th>
+        <th>Link</th>
+        <th>Hapus</th>
+      </tr>
+      <% @recipients.where(event_id: @event.id).each do |recipient| %>
+        <% @events = Event.all %>
+          <tr>
+            <td><%= recipient.name %></td>
+            <td><%= link_to("#{request.base_url}/events/#{@event.id}/#{recipient.converted_name_for_link}", "/events/#{@event.id}/#{recipient.converted_name_for_link}") %></td>
+            <td><%= link_to("hapus", "/recipients/#{@event.id}/#{recipient.id}/delete") %></td>
+          </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>Belum ada penerima, silahkan tambahkan penerima</p>
+  <% end %>
+</div>

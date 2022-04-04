@@ -1,0 +1,28 @@
+<div>
+  <h1>UNDANGAN</h1>
+  <p>untuk</p>
+  <h2><%= @recipient.name %></h2>
+</div>
+<div>
+  <h2>MENGUNDANG</h2>
+  <div>
+    <% if @event.opening %>
+      <p><%= @event.opening %></p>
+    <% end %>
+    <h2><%= @event.name %></h2>
+    <p><%= @event.date.strftime("#{@day_id[@event.date.strftime("%w").to_i]}, %d #{@month_id[@event.date.strftime("%-m").to_i - 1]} %Y - %H:%M") %></p>
+    <p><%= @event.place %></p>
+    <% if @event.description %>
+      <p><%= @event.description %></p>
+    <% end %>
+    <% if @event.closing %>
+      <p><%= @event.closing %></p>
+    <% end %>
+    <div>
+    <% if @event.sender_status %>
+      <p><%= @event.sender_status %></p>
+    <% end %>
+    <p><%= @event.sender %></p>
+    </div>
+  </div>
+</div>

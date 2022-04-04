@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Undangapp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+  <header>
+    <div class="header-logo">
+      <%= link_to("UndangApp", "/") %>
+    </div>
+    <ul class="header-menus">
+      <% if @current_user %>
+        <li>
+          <%= link_to("#{@current_user.name}", "/dashboard/#{@current_user.id}") %>
+        </li>
+        <li>
+          <%= link_to("Acara", "/events/index") %>
+        </li>
+        <li>
+          <%= link_to("Log out", "/logout") %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to("Log in", "/login") %>
+        </li>
+        <li>
+          <%= link_to("Sign up", "/signup") %>
+        </li>
+        <li>
+          <%= link_to("About", "/about") %>
+        </li>
+      <% end %>
+    </ul>
+  </header>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<div>
+  <h1>Sign up</h1>
+
+  <%= form_tag("/users/create") do %>
+    <div>
+      <label for="name">Nama</label>
+      <input type="text" id="name" name="name" value="<%= params[:name] %>">
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" value="<%= params[:email] %>">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" value="<%= params[:password] %>">
+    </div>
+    <div>
+      <input type="submit" value="Sign up">
+    </div>
+  <% end %>
+
+</div>
