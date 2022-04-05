@@ -1,37 +1,43 @@
 <div>
-  <h1>
-    <%= @event.name %>
-  </h1>
-  <%= @event.date.strftime("#{@day_id[@event.date.strftime("%w").to_i]}, %d #{@month_id[@event.date.strftime("%-m").to_i - 1]} %Y - %H:%M") %>
-  <%= @event.place %>
-</div>
-<div>
-  <%= form_tag("/recipients/#{@event.id}/create") do %>
-    <div>
-      <label for="name">Nama</label>
-      <input type="text" id="name" name="name" value="<%= params[:name] %>">
-    </div>
-    <div>
-      <input type="submit" value="Tambah penerima">
-    </div>
-  <% end %>
-  <% if @recipients.find_by(event_id: @event.id) %>
-    <table>
-      <tr>
-        <th>Nama Penerima</th>
-        <th>Link</th>
-        <th>Hapus</th>
-      </tr>
-      <% @recipients.where(event_id: @event.id).each do |recipient| %>
-        <% @events = Event.all %>
-          <tr>
-            <td><%= recipient.name %></td>
-            <td><%= link_to("#{request.base_url}/events/#{@event.id}/#{recipient.converted_name_for_link}", "/events/#{@event.id}/#{recipient.converted_name_for_link}") %></td>
-            <td><%= link_to("hapus", "/recipients/#{@event.id}/#{recipient.id}/delete") %></td>
-          </tr>
-      <% end %>
-    </table>
-  <% else %>
-    <p>Belum ada penerima, silahkan tambahkan penerima</p>
-  <% end %>
+  <div class="mb-3">
+    <h1 class="h1 mb-0">
+      <%= @event.name %>
+    </h1>
+    <p class="h5 text-black-50 mb-0">
+      <%= @event.date.strftime("#{@day_id[@event.date.strftime("%w").to_i]}, %d #{@month_id[@event.date.strftime("%-m").to_i - 1]} %Y - %H:%M") %>
+    </p>
+    <p class="h5 text-black-50 mb-0">
+      <%= "di #{@event.place}" %>
+    </p>
+  </div>
+  <div>
+    <%= form_tag("/recipients/#{@event.id}/create", class: "mb-3") do %>
+      <div class="form-floating mb-1">
+        <input class="form-control" type="text" id="name" name="name" value="<%= params[:name] %>" placeholder="Tambahkan nama penerima" required>
+        <label for="name">Tambahkan Nama Penerima</label>
+      </div>
+      <div>
+        <input class="btn btn-dark" type="submit" value="Tambah penerima">
+      </div>
+    <% end %>
+    <% if @recipients.find_by(event_id: @event.id) %>
+      <table class="table table-stripped mt-3 mb-5 table-hover">
+        <tr class="table-dark">
+          <th>Nama Penerima</th>
+          <th>Link</th>
+          <th>Aksi</th>
+        </tr>
+        <% @recipients.where(event_id: @event.id).each do |recipient| %>
+          <% @events = Event.all %>
+            <tr class="align-middle">
+              <td><%= recipient.name %></td>
+              <td><%= link_to("#{request.base_url}/events/#{@event.id}/#{recipient.converted_name_for_link}", "/events/#{@event.id}/#{recipient.converted_name_for_link}", class: "text-break link-dark") %></td>
+              <td><%= link_to("hapus", "/recipients/#{@event.id}/#{recipient.id}/delete", class: "btn btn-danger") %></td>
+            </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p class="h3 text-black-50">Belum ada penerima, silahkan tambahkan penerima</p>
+    <% end %>
+  </div>
 </div>

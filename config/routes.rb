@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'invitation/show'
-
   post 'recipients/:event_id/create' => 'recipients#create'
   get 'recipients/:event_id/:id/delete' => 'recipients#delete_recipient'
 
@@ -16,13 +14,11 @@ Rails.application.routes.draw do
   get 'dashboard/:id' => 'users#show'
   post 'users/create' => 'users#create'
   get 'signup' => 'users#new'
-  get 'users/index' => 'users#index'
   get 'login' => 'users#login_form'
   post 'login' => 'users#login'
   get 'logout' => 'users#logout'
 
   get '/' => 'home#index'
-  get 'about' => 'home#about'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

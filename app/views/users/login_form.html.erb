@@ -1,18 +1,24 @@
 <div>
-  <h1>Log in</h1>
-
-  <%= form_tag("/login") do %>
-    <div>
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" value="<%= params[:email] %>">
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" value="<%= params[:password] %>">
-    </div>
-    <div>
-      <input type="submit" value="Log in">
+  <h1 class="h1 mb-4">Masuk</h1>
+  <% if @error_message %>
+    <div class="form-error">
+      <%= @error_message %>
     </div>
   <% end %>
+  <div style="max-width: 500px">
+    <%= form_tag("/login") do %>
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" id="email" name="email" value="<%= params[:email] %>" placeholder=" " required>
+        <label for="email">Email</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control" type="password" id="password" name="password" value="<%= params[:password] %>" placeholder=" " required>
+        <label for="password">Password</label>
+      </div>
+      <div>
+        <input class="btn btn-dark" type="submit" value="Masuk">
+      </div>
+    <% end %>
+  </div>
 
 </div>

@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user, {only: [:index, :show, :new, :create, :delete, :edit, :update]}
+  before_action :ensure_correct_user, {only: [:show, :delete, :edit, :update]}
 
   def index
     @events = Event.all.order(created_at: :desc)
@@ -28,6 +30,7 @@ class EventsController < ApplicationController
       user_id: @current_user.id
     )
     if @event.save
+      flash[:success] = "Acara berhasil dibuat"
       redirect_to("/events/index")
     else
       render("events/new")
@@ -39,6 +42,7 @@ class EventsController < ApplicationController
     @event.destroy
     @recipient = Recipient.where(event_id: params[:id])
     @recipient.destroy_all
+    flash[:warning] = "Acara berhasil dihapus"
     redirect_to("/events/index")
   end
 
@@ -57,6 +61,7 @@ class EventsController < ApplicationController
     @event.sender = params[:sender]
     @event.sender_status = params[:sender_status]
     @event.save
+    flash[:warning] = "Acara berhasil diperbarui"
     redirect_to("/events/index")
   end
 
@@ -65,5 +70,14 @@ class EventsController < ApplicationController
     @recipient = Recipient.find_by(converted_name_for_link: params[:converted_name_for_link])
     @day_id = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"]
     @month_id = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+    render layout: false
+  end
+
+  def ensure_correct_user
+    @event = Event.find_by(id: params[:id])
+    if @event.user_id != @current_user.id
+      flash[:danger] = "Akses dilarang"
+      redirect_to("/dashboard/#{@current_user.id}")
+    end
   end
 end

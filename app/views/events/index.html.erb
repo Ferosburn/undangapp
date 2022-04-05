@@ -1,26 +1,35 @@
-<h1>Daftar Acara</h1>
-<%= link_to("Buat Acara Baru", "/events/new") %>
-<% if @events.find_by(user_id: @current_user.id) %>
-  <table>
-    <tr>
-      <th>Nama Acara</th>
-      <th>Waktu</th>
-      <th>Tempat</th>
-      <th>Ubah</th>
-      <th>Hapus</th>
-    </tr>
-    <% @events.where(user_id: @current_user.id).each do |event| %>
-      <% day_id = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"] %>
-      <% month_id = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"] %>
-        <tr>
-          <td><%= link_to(event.name, "/events/#{event.id}") %></td>
-          <td><%= event.date.strftime("#{day_id[event.date.strftime("%w").to_i]}, %d #{month_id[event.date.strftime("%-m").to_i - 1]} %Y - %H:%M") %></td>
-          <td><%= event.place %></td>
-          <td><%= link_to("ubah", "/events/#{event.id}/edit") %></td>
-          <td><%= link_to("hapus", "/events/#{event.id}/delete", method: :delete) %></td>
+<div>
+  <h1 class="h1 mb-5">Daftar Acara</h1>
+  <%= link_to("Buat Acara Baru", "/events/new", class: "btn btn-dark mb-2") %>
+  <% if @events.find_by(user_id: @current_user.id) %>
+    <table class="table table-stripped table-hover">
+      <thead>
+        <tr class="table-dark">
+          <th scope="row">Nama Acara</th>
+          <th scope="row">Waktu</th>
+          <th scope="row">Tempat</th>
+          <th colspan="2" scope="row" class="text-center">Aksi</th>
         </tr>
-    <% end %>
-  </table>
-<% else %>
-  <h2>Belum ada acara</h2>
-<% end %>
+      </thead>
+      <tbody>
+        <% @events.where(user_id: @current_user.id).each do |event| %>
+          <% day_id = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"] %>
+          <% month_id = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"] %>
+            <tr class="align-middle">
+              <td><%= link_to(event.name, "/events/#{event.id}", class: "link-dark") %></td>
+              <td><%= event.date.strftime("#{day_id[event.date.strftime("%w").to_i]}, %d #{month_id[event.date.strftime("%-m").to_i - 1]} %Y - %H:%M") %></td>
+              <td><%= event.place %></td>
+              <td class="text-center">
+                <div class="btn-group">
+                  <%= link_to("ubah", "/events/#{event.id}/edit", class: "btn btn-warning") %>
+                  <%= link_to("hapus", "/events/#{event.id}/delete", class: "btn btn-danger") %>
+                </div>
+              </td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="h3 text-black-50">Belum ada acara, silahkan tambahkan acara</p>
+  <% end %>
+</div>
