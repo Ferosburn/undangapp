@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'events/:id/:converted_name_for_link' => 'events#invitation'
 
   get 'dashboard/:id' => 'users#show'
+  post 'users/:id/update' => 'users#update'
+  get 'users/:id/edit' => 'users#edit'
   post 'users/create' => 'users#create'
   get 'signup' => 'users#new'
   get 'login' => 'users#login_form'

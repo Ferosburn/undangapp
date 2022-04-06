@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :forbid_login_user, {only: [:new, :create, :login_form, :login]}
-  before_action :authenticate_user, {only: [:index, :logout, :show]}
-  before_action :ensure_correct_user, {only: [:show]}
+  before_action :authenticate_user, {only: [:index, :logout, :show, :edit, :update]}
+  before_action :ensure_correct_user, {only: [:show, :edit, :update]}
 
   def index
     @users = User.all
@@ -22,6 +22,22 @@ class UsersController < ApplicationController
       redirect_to("/login")
     else
       render("users/new")
+    end
+  end
+
+  def edit
+    @user = User.find_by(id: params[:id])
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    @user.name = params[:name]
+    @user.email = params[:email]
+    if @user.save
+      flash[:success] = "Profil berhasil diubah"
+      redirect_to("/dashboard/#{@current_user.id}")
+    else
+      render("users/edit")
     end
   end
   

@@ -1,0 +1,24 @@
+<div>
+  <h1 class="h1 mb-4">Ubah Profil</h1>
+  <% @user.errors.full_messages.each do |message| %>
+    <div class="form-error">
+      <%= message %>
+    </div>
+  <% end %>
+  <div style="max-width: 500px">
+    <%= form_tag("/users/#{@current_user.id}/update") do %>
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" id="name" name="name" value="<%= @user.name %>" placeholder=" " required>
+        <label for="name">Nama</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" id="email" name="email" value="<%= @user.email %>" placeholder=" " required>
+        <label for="email">Email</label>
+      </div>
+      <div>
+        <input class="btn btn-dark" type="submit" value="Perbarui">
+      </div>
+    <% end %>
+  </div>
+
+</div>

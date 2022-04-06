@@ -1,6 +1,8 @@
 <div>
   <h1 class="h1 mb-5">Daftar Acara</h1>
-  <%= link_to("Buat Acara Baru", "/events/new", class: "btn btn-dark mb-2") %>
+  <div>
+    <%= link_to("Buat Acara Baru", "/events/new", class: "btn btn-dark mb-2") %>
+  </div>
   <% if @events.find_by(user_id: @current_user.id) %>
     <table class="table table-stripped table-hover">
       <thead>
@@ -30,6 +32,6 @@
       </tbody>
     </table>
   <% else %>
-    <p class="h3 text-black-50">Belum ada acara, silahkan tambahkan acara</p>
+    <p class="h3 text-black-50">Belum ada acara, silahkan buat acara baru</p>
   <% end %>
 </div>
